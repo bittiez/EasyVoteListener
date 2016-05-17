@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EasyVoteListener:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EasyVoteListener_jar</output-path>
+    <root id="archive" name="EasyVoteListener.jar">
+      <element id="module-output" name="EasyVoteListener" />
+    </root>
+  </artifact>
+</component>
