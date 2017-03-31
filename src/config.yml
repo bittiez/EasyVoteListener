@@ -1,0 +1,11 @@
+# Enable debug mode to get a lot of output on what is going on during the plugin running
+debug: false
+
+# The commands here will be run from the console, not the player.
+permissions:
+  EVL_player:
+    - "tell [PLAYER] &7[EVL]&6 Thanks for voting!"
+    - "give [PLAYER] diamond 1"
+  EVL_vip:
+    - "tell [PLAYER] &7[EVL]&6 Thanks for voting!"
+    - "give [PLAYER] diamond 3"

@@ -1,5 +1,14 @@
 name: EasyVoteListener
-version: 1.0.0
+version: 1.1.0
 author: bittiez
 main: US.bittiez.EasyVoteListener.main
 depend: [Votifier]
+commands:
+    EVL:
+        description: EVL Command
+        usage: /EVL
+        permission: EVL
+permissions:
+    EVL.test:
+        description: Allows the use /EVL test to test your permissions/rewards
+        default: op

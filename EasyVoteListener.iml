@@ -27,5 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="patched_1.11.2" level="project" />
+    <orderEntry type="library" name="nuvotifier-universal-2.3.4" level="project" />
   </component>
 </module>
