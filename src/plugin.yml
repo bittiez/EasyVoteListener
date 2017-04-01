@@ -12,3 +12,6 @@ permissions:
     EVL.test:
         description: Allows the use /EVL test to test your permissions/rewards
         default: op
+    EVL.updates:
+        description: Will be informed of updates to the plugin
+        default: op

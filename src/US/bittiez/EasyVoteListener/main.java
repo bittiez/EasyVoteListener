@@ -1,5 +1,7 @@
 package US.bittiez.EasyVoteListener;
 
+import US.bittiez.EasyVoteListener.UpdateChecker.UpdateChecker;
+import US.bittiez.EasyVoteListener.UpdateChecker.UpdateStatus;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import org.bukkit.Bukkit;
@@ -35,6 +37,24 @@ public class main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         if (debug == false)
             debug = config.getBoolean("debug", false);
+        UpdateStatus update = new UpdateChecker("https://github.com/bittiez/EasyVoteListener/raw/master/src/plugin.yml", getDescription().getVersion()).getStatus();
+        if(update.HasUpdate){
+            getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                @Override
+                public void run() {
+                 log.info("EasyVoteListener is out of date, check out the newest version here: https://github.com/bittiez/EasyVoteListener/releases");
+                }
+            }, (20*60)*5); //5 minutes
+            getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                @Override
+                public void run() {
+                    for(Player p : getServer().getOnlinePlayers()){
+                        if(p.isOp() || p.hasPermission("EVL.updates"))
+                            p.sendMessage(colorize("&9EasyVoteListener &3is out of date, check out the newest version here: &bhttps://github.com/bittiez/EasyVoteListener/releases"));
+                    }
+                }
+            }, (20*60)*15,(20*60)*5);
+        }
     }
 
     private void loadConfig() {
