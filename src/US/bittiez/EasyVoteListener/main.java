@@ -1,5 +1,6 @@
 package US.bittiez.EasyVoteListener;
 
+import US.bittiez.EasyVoteListener.Config.Configurator;
 import US.bittiez.EasyVoteListener.UpdateChecker.UpdateChecker;
 import US.bittiez.EasyVoteListener.UpdateChecker.UpdateStatus;
 import com.vexsoftware.votifier.model.Vote;
@@ -23,44 +24,43 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class main extends JavaPlugin implements Listener {
-    private FileConfiguration config = getConfig();
     private FileConfiguration dueConfig;
     private String dueConfigYml = "playersDue.yml";
     private static Logger log = Logger.getLogger("EasyVoteListener");
-    private static boolean debug = true;
+    private static boolean debug = false;
+    private Configurator configurator = new Configurator();
 
     @Override
     public void onEnable() {
         log = getLogger();
         loadSignData();
-        loadConfig();
+
+        configurator.setConfig(this);
+        configurator.saveDefaultConfig(this);
+
         getServer().getPluginManager().registerEvents(this, this);
         if (debug == false)
-            debug = config.getBoolean("debug", false);
+            debug = configurator.config.getBoolean("debug", false);
         UpdateStatus update = new UpdateChecker("https://github.com/bittiez/EasyVoteListener/raw/master/src/plugin.yml", getDescription().getVersion()).getStatus();
-        if(update.HasUpdate){
+        if (update.HasUpdate) {
             getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
                 @Override
                 public void run() {
-                 log.info("EasyVoteListener is out of date, check out the newest version here: https://github.com/bittiez/EasyVoteListener/releases");
+                    log.info("EasyVoteListener is out of date, check out the newest version here: https://github.com/bittiez/EasyVoteListener/releases");
                 }
-            }, (20*60)*5); //5 minutes
+            }, (20 * 60) * 5); //5 minutes
             getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 @Override
                 public void run() {
-                    for(Player p : getServer().getOnlinePlayers()){
-                        if(p.isOp() || p.hasPermission("EVL.updates"))
+                    for (Player p : getServer().getOnlinePlayers()) {
+                        if (p.isOp() || p.hasPermission("EVL.updates"))
                             p.sendMessage(colorize("&9EasyVoteListener &3is out of date, check out the newest version here: &bhttps://github.com/bittiez/EasyVoteListener/releases"));
                     }
                 }
-            }, (20*60)*15,(20*60)*5);
+            }, (20 * 60) * 15, (20 * 60) * 5);
         }
     }
 
-    private void loadConfig() {
-        config.options().copyDefaults();
-        saveDefaultConfig();
-    }
 
     public boolean onCommand(CommandSender who, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("EVL")) {
@@ -68,7 +68,13 @@ public class main extends JavaPlugin implements Listener {
                 who.sendMessage(colorize("&9[EVL] &3Simulating a vote for &b" + who.getName()));
                 rewardPlayer((Player) who);
                 return true;
+            } else if (args.length > 0 && args[0].equalsIgnoreCase("reload") && who instanceof Player && who.hasPermission("EVL.reload")) {
+                configurator.reloadPluginDefaultConfig(this);
+                debug = configurator.config.getBoolean("debug", false);
+                who.sendMessage(colorize("&9[EVL] &3The config has been reloaded!"));
+                return true;
             }
+            return true;
         }
         return false;
     }
@@ -108,22 +114,20 @@ public class main extends JavaPlugin implements Listener {
     private void rewardPlayer(Player who) {
         if (debug)
             log.info("Checking " + who.getName());
-        if(config == null)
-            log.severe("Config is null!");
-        Set<String> permSet = config.getConfigurationSection("permissions").getKeys(false);
+        Set<String> permSet = configurator.config.getConfigurationSection("permissions").getKeys(false);
         for (String perm : permSet) { //Loop through all permissions
-            if(debug)
-                who.sendMessage(colorize("&9[EVL] &3Testing for permission: "+perm));
+            if (debug)
+                who.sendMessage(colorize("&9[EVL] &3Testing for permission: " + perm));
             if (who.hasPermission(perm)) {
                 if (debug)
                     who.sendMessage(colorize("&9[EVL] &3You have the permission: " + perm));
-                for (String cmd : config.getStringList("permissions." + perm)) { //Loop through all commands for this permission
+                for (String cmd : configurator.config.getStringList("permissions." + perm)) { //Loop through all commands for this permission
                     cmd = cmd.replace("[PLAYER]", who.getName());
                     if (debug) {
                         who.sendMessage(colorize("&9[EVL] &3This command would have run if not in debug mode:"));
                         who.sendMessage(colorize("&9[EVL] &3" + cmd));
                     } else { //Only run commands when debug mode is disabled
-                        getServer().dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                        getServer().dispatchCommand(Bukkit.getConsoleSender(), colorize(cmd));
                     }
                 }
             }

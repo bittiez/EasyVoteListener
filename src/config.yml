@@ -2,6 +2,8 @@
 debug: false
 
 # The commands here will be run from the console, not the player.
+# The permissions here will be checked when a player votes, if they have that permission the commands for the permission will be ran
+# Note if you use parenting in your permissions system that some players may receive rewards for multiple permissions if you don't negate them
 permissions:
   EVL_player:
     - "tell [PLAYER] &7[EVL]&6 Thanks for voting!"

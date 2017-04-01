@@ -1,5 +1,5 @@
 name: EasyVoteListener
-version: 1.2.0
+version: 1.4.0
 author: bittiez
 main: US.bittiez.EasyVoteListener.main
 depend: [Votifier]
@@ -14,4 +14,7 @@ permissions:
         default: op
     EVL.updates:
         description: Will be informed of updates to the plugin
+        default: op
+    EVL.reload:
+        description: Allows the use of /EVL reload to reload the config file
         default: op
