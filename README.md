@@ -10,6 +10,8 @@ Spigot 1.11 plugin to run commands when a player votes with votifier(or a compat
 # Description
 This is a very easy, highly configurable plugin to run commands when a player votes
 
+If a player votes while offline, it will wait until the log in to process their vote.
+
 # Usage
 Vote
 
