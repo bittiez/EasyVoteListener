@@ -13,6 +13,11 @@ This is a very easy, highly configurable plugin to run commands when a player vo
 # Usage
 Vote
 
+# Commands
+
+`/EVL test` - `(EVL.test)` - This will simulate a vote for you, for testing purposes  
+`/EVL reload` - `(EVL.reload)` - Reload the config file
+
 # Permissions
 [View permissions here](../../blob/master/src/plugin.yml)
 
@@ -23,5 +28,11 @@ Vote
 - Edit the configuration options
 
 # Configuration
+
+- Note that all commands will be run from the console, not the player.  
+- You can set up as many permissions and commands as you would like, in the default config I have included a `EVL_player` and an `EVL_vip` permission as an example.  
+- Anyone with EVL_player will have the commands under it ran, the same with vip, you can create as many permissions and commands as you would like!
+    
+Before you ask for help, please check that your YML file is properly formatted [here](http://yaml-online-parser.appspot.com/)
 
 [View default configuration file here](../../blob/master/src/config.yml)
