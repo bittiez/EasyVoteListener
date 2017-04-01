@@ -38,3 +38,6 @@ Vote
 Before you ask for help, please check that your YML file is properly formatted [here](http://yaml-online-parser.appspot.com/)
 
 [View default configuration file here](../../blob/master/src/config.yml)
+
+# To Do
+- Add a message telling you how long the vote has left
