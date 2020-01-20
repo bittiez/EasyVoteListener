@@ -31,7 +31,7 @@ public class main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         log = getLogger();
-        loadSignData();
+        loadDueData();
 
         configurator.setConfig(this);
         configurator.saveDefaultConfig(this);
@@ -126,7 +126,7 @@ public class main extends JavaPlugin implements Listener {
         }
     }
 
-    private void loadSignData() {
+    private void loadDueData() {
         File dueFile = new File(this.getDataFolder(), dueConfigYml);
 
         if (!this.getDataFolder().exists())
