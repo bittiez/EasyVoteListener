@@ -4,7 +4,7 @@
 
 # Easy Vote Listener
 
-Spigot 1.15 plugin to run commands when a player votes with votifier(or a compatable plugin like nuVotifier).
+Spigot 1.15 plugin to run commands when a player votes with votifier(or a compatible plugin like nuVotifier).
 
 # Description
 This is a very easy, highly configurable plugin to run commands when a player votes
