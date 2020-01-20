@@ -2,7 +2,6 @@ name: EasyVoteListener
 version: 1.4.2
 author: bittiez
 main: US.bittiez.EasyVoteListener.main
-depend: [Votifier]
 api-version: 1.15
 commands:
     EVL:
