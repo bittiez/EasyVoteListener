@@ -1,8 +1,9 @@
 name: EasyVoteListener
-version: 1.4.1
+version: 1.4.2
 author: bittiez
 main: US.bittiez.EasyVoteListener.main
 depend: [Votifier]
+api-version: 1.15
 commands:
     EVL:
         description: EVL Command
@@ -10,9 +11,6 @@ commands:
 permissions:
     EVL.test:
         description: Allows the use /EVL test to test your permissions/rewards
-        default: op
-    EVL.updates:
-        description: Will be informed of updates to the plugin
         default: op
     EVL.reload:
         description: Allows the use of /EVL reload to reload the config file
